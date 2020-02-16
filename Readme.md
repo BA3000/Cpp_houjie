@@ -64,6 +64,7 @@ int main()
 
 这里以两个类做出说明：
 
+```c++
 	class complex
 	{
 		public:
@@ -78,8 +79,9 @@ int main()
 			friend complex& __doapl (complex*,
 			const complex&);
 	};
+```
 
-
+```c++
 	class String
 	{
 		public:
@@ -91,6 +93,7 @@ int main()
 		private:
 			char* m_data;
 	};
+```
 
 创建这两个对象后，编译器(VC)给两个对象分配内存如下：
 ![](https://i.imgur.com/1Ud7vVP.png)
@@ -109,7 +112,7 @@ int main()
 ## 5.String类
 
 String.h
-
+``` c++
 	#ifndef __MYSTRING__
 	#define __MYSTRING__
 	
@@ -149,6 +152,7 @@ String.h
 	inline
 	String& String::operator=(const String& str)
 	{
+		// 注意this是指针，所以要&str，获得字符串的指针
 	   if (this == &str)
 	      return *this;
 	
@@ -175,9 +179,11 @@ String.h
 	}
 	
 	#endif
+```
 
 string_test.cpp
 
+```c++
 	#include "string.h"
 	#include <iostream>
 	
@@ -196,7 +202,7 @@ string_test.cpp
 	  cout << s2 << endl;  
 	  cout << s1 << endl;      
 	}
-
+```
 
 ## C++中的explicit ##
 
@@ -208,6 +214,7 @@ C++中， 一个参数的构造函数(或者除了第一个参数外其余参数
 
 explicit构造函数是用来防止隐式转换的。请看下面的代码：
 
+```c++
 	class Test1
 	{
 	public:
@@ -235,6 +242,7 @@ explicit构造函数是用来防止隐式转换的。请看下面的代码：
 	    Test2 t2(12);//显式调用成功
 	    return 0;
 	}
+```
 
 Test1的构造函数带一个int型的参数，代码23行会隐式转换成调用Test1的这个构造函数。而Test2的构造函数被声明为explicit（显式），这表示不能通过隐式转换来调用这个构造函数，因此代码24行会出现编译错误。
 
